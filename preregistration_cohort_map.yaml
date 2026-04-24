@@ -19,6 +19,10 @@ dataset_provenance:
   unique_source_labels:         47
   long_format_observations:     2917
   frozen_date: "2026-04-22"
+  osf_registration_doi: "10.17605/OSF.IO/3CZRE"
+  osf_registration_url: "https://osf.io/3czre"
+  zenodo_concept_doi: "10.5281/zenodo.19743544"
+  zenodo_version_doi: "10.5281/zenodo.19743545"
 
 inferential_unit:
   primary:    "cohort-time-arm (v10.0 §4.1, ecological)"

@@ -327,16 +327,28 @@ Citations in the manuscript should use:
 
 ---
 
-## OSF pre-registration status (2026-04-24)
+## OSF pre-registration archive (final)
 
-- **OSF project URL**: https://osf.io/tr469 (public)
-- **Registration type**: OSF Preregistration (public immediately)
-- **Status at commit time**: archiving in progress (DOI pending assignment)
-- **Attached files**: preregistration_cohort_map.yaml, cohort_normalization_map.csv
-- **Registration author**: Héctor Manuel Virgen Ayala
-- **Date registered**: 2026-04-24
+- **OSF registration DOI**: `10.17605/OSF.IO/3CZRE`
+- **Registration URL**: https://osf.io/3czre
+- **Parent project**: https://osf.io/tr469
+- **Registration type**: OSF Preregistration (public, CC-BY 4.0)
+- **Date registered**: 2026-04-24 15:44 CST
+- **Attached files**: preregistration_cohort_map.yaml (13.1 KB) + cohort_normalization_map.csv (5.2 KB) — archived permanently in the registration
+- **Author**: Héctor Manuel Virgen Ayala
 
-The OSF registration DOI will be injected into CITATION.cff and this appendix
-once the archiving email confirmation arrives (typically within 1 hour).
-A subsequent GitHub release (v1.1) will trigger the Zenodo update with the
-completed OSF DOI cross-reference.
+## Final DOI cross-reference manifest
+
+| Resource | DOI | URL |
+|---|---|---|
+| Zenodo concept (latest version) | `10.5281/zenodo.19743544` | https://zenodo.org/doi/10.5281/zenodo.19743544 |
+| Zenodo v1.0 (code snapshot) | `10.5281/zenodo.19743545` | https://zenodo.org/records/19743545 |
+| **OSF pre-registration** | **`10.17605/OSF.IO/3CZRE`** | **https://osf.io/3czre** |
+| GitHub source (v1.0 tag) | `sv8wmxnbp8-hash/EPP10@v1.0` | https://github.com/sv8wmxnbp8-hash/EPP10/releases/tag/v1.0 |
+| medRxiv preprint | pending (~2-4 business days post-submit) | — |
+
+The triad Zenodo ↔ OSF ↔ GitHub provides three independent archives with
+cross-referenced DOIs, enabling any reviewer or future reader to verify:
+(i) the code that generated every number in the paper (Zenodo),
+(ii) the pre-registered analysis plan with timestamp (OSF, 2026-04-24),
+(iii) the public source history (GitHub, 3 commits to v1.0).
