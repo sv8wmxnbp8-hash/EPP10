@@ -308,3 +308,19 @@ orthogonal methodological angles.
 
 *Verification Appendix S3 generated from pipeline artefacts on 2026-04-22 by `generate_compliance_and_appendix.R`.*
 
+
+---
+
+## Post-release DOI assignments (updated 2026-04-24)
+
+| Resource | DOI | URL |
+|---|---|---|
+| Zenodo code archive (v1.0) | `10.5281/zenodo.19743545` | https://zenodo.org/records/19743545 |
+| Zenodo concept DOI (all versions) | `10.5281/zenodo.19743544` | https://zenodo.org/doi/10.5281/zenodo.19743544 |
+| GitHub source | `github.com/sv8wmxnbp8-hash/EPP10` tag `v1.0` | https://github.com/sv8wmxnbp8-hash/EPP10/releases/tag/v1.0 |
+| OSF pre-registration | pending | — |
+| medRxiv preprint | pending (~2-4 business days post-submit) | — |
+
+Citations in the manuscript should use:
+- **In the main text and methods**: Zenodo concept DOI `10.5281/zenodo.19743544` — resolves to the current version and remains stable across post-submission updates.
+- **In the verification appendix manifest**: Zenodo version DOI `10.5281/zenodo.19743545` for v1.0 exact snapshot.
