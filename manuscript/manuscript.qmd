@@ -13,24 +13,35 @@ abstract: |
 
   **Objective.** To establish and validate six cohort-specific multi-hormone signatures via two complementary classification routes — joint-multivariate sparse mFACEs with Chiou normalization, and per-analyte Periprandial Transition Profile (PTP) → Integrated Enteropancreatic Pattern (IEP) Type I–V — under a fully pre-registered protocol. Glycemic subclassification (a/b/c) is applied to dysphysiological/infraphysiological types (III, IV, V) only.
 
-  **Design.** Ecological cohort-time-arm meta-analysis of 71 (Author × Cohort) tuples from 25 independent publications, harmonized to six canonical cohorts: `no_obese_without_T2DM` (reference), Obesity, T2DM, Obesity_T2DM, SG, RYGBP. Pseudo-individualization via Gaussian process AR(1) draws (M = 1000, ρ = 0.5 primary, literature-based hormone-specific CV priors). Joint mFACEs fit with Chiou normalization; per-analyte PTP classes aggregated by deterministic precedence to IEP Type, presented in two parallel tracks: without glycemic subclassification (Types I–V only) and with glycemic subclassification (a/b/c) restricted to dysregulated Types III, IV, V.
+  **Design, Setting, and Participants.** Ecological cohort-time-arm meta-analysis synthesizing published aggregate periprandial trajectories — no primary recruitment, no individual participant data — across 71 (Author × Cohort) tuples from 25 independent publications, harmonized to six canonical cohorts: `no_obese_without_T2DM` (reference), Obesity, T2DM, Obesity_T2DM, SG, RYGBP. Pseudo-individualization via Gaussian process AR(1) draws (M = 1000, ρ = 0.5 primary, literature-based hormone-specific CV priors) propagates trajectory variance from cohort means to N = 2750 pseudo-subjects across 55 productive analytical arms. Joint mFACEs fit with Chiou normalization; per-analyte PTP classes aggregated by deterministic precedence to IEP Type, presented in two parallel tracks: without glycemic subclassification (Types I–V only) and with glycemic subclassification (a/b/c) restricted to dysregulated Types III, IV, V.
+
+  **Main Outcome Measures.** Number of retained joint mFPC components K under FVE 0.90 with explicit incretin-axis loading on PC1; omnibus and pairwise Pillai F multivariate contrasts (B = 5000 permutations) and per-PC FANOVA with BH-FDR; cohort-specific prevalence of the joint 6-class scheme (Preservado / Imp. lim. / Impaired / Blunted / Enhanced / Altered) and of IEP Types I–V (with and without glycemic subclassification a/b/c); cross-framework Spearman concordance between Pillai F and IEP Type IV.II prevalence; classification-stage bootstrap stability (B = 2000) against the pre-registered ≥ 80 % target.
 
   **Results.** N = 2750 pseudo-subjects; K = 14 joint mFPC components retained at FVE 0.90 (N/K = 196), with PC1 showing incretin loading = 0.817. Omnibus Pillai F = 47.6 (p < 0.001; 5000 permutations). Pairwise Pillai F vs. reference: T2DM = 108.3, RYGBP = 86.8, Obesity_T2DM = 59.3, SG = 34.1, Obesity = 22.5. Joint classification: reference 42 % Preservado; RYGBP 37 % Altered + 12 % Enhanced; T2DM 28 % Impaired + 9 % Blunted. PTP/IEP Type IV.II ranking (within classifiable subset): RYGBP 76 % > Obesity_T2DM 56 % > SG 55 % > Obesity 45 % > T2DM 29 % > reference 19 %; with glycemic subclassification, the dominant cell IV.II.c (dysphysiological + dysglycemic) reaches 63 % in RYGBP and 56 % in Obesity_T2DM. Dual-route Spearman ρ = 0.50 (moderate; complementary not redundant). Classification stability B = 2000 = 81.6 % ≥ 0.80 pre-registered target.
 
   **Conclusions.** Sparse mFACEs with Chiou normalization plus dual-track PTP/IEP classification (with and without glycemic subclassification) is a reproducible framework for extracting multi-hormone signatures from ecological aggregate data. The framework operationalizes *physiologic periprandial responsiveness* as a multi-analyte, multi-state alternative to the static *secretory capacity* construct. The RYGBP signature (Type IV.II + Enhanced incretin component) is operationally distinguishable from the T2DM signature (Type III.II infra-physiological), supporting functional stratification of bariatric-surgery candidates.
 keywords:
+  - sparse mFACEs
+  - Chiou normalization
   - enteropancreatic axis
-  - functional data analysis
-  - mFACEs
-  - bariatric surgery
+  - periprandial hormone trajectory
+  - bariatric-metabolic surgery
   - PTP/IEP classification
-  - ecological meta-analysis
   - physiologic periprandial responsiveness
+  - ecological meta-analysis
+  - glycemic subphenotyping
+  - functional data analysis
 ---
+
+**Keywords:** sparse mFACEs; Chiou normalization; enteropancreatic axis; periprandial hormone trajectory; bariatric-metabolic surgery; PTP/IEP classification; physiologic periprandial responsiveness; ecological meta-analysis; glycemic subphenotyping; functional data analysis
 
 # Introduction
 
-The enteropancreatic axis orchestrates periprandial energy homeostasis through a temporally coordinated choreography among gastric (ghrelin), intestinal L-cell (GLP-1, PYY) and K-cell (GIP), pancreatic (insulin, glucagon) hormones, and the glycemic regulation signal. This activity is not episodic but continuous across the 24-hour circadian cycle, with intense secretion and inhibition phases triggered by feeding versus fasting. Cohort-specific remodeling of this choreography under obesity, type 2 diabetes (T2DM), their co-occurrence, and surgical metabolic modalities (sleeve gastrectomy [SG], Roux-en-Y gastric bypass [RYGBP]) defines metabolic phenotypes with greater fidelity than any static marker individually.^1-6^ Two decades of mechanistic characterization have established the qualitative contours, but quantitative multi-hormone integration of heterogeneous aggregate data across published cohorts remains a statistically open problem.
+The convergent epidemics of obesity and type 2 diabetes mellitus (T2DM) constitute the dominant metabolic burden of the 21st century. The NCD Risk Factor Collaboration estimated that more than one billion individuals were living with obesity in 2022, with obesity now the prevailing form of malnutrition in 177 countries for women and 145 countries for men;^1^ in parallel, 828 million adults had diabetes globally in 2022 — a fourfold increase from 198 million in 1990 — with 59 % remaining untreated.^2^ The Global Burden of Disease 2023 analysis ranked diabetes as the third leading non-communicable disease worldwide and documented the largest age-standardized DALY rate increase among leading NCDs (+14.9 % since 2010).^3^ Projections indicate that more than half of all adults — approximately 3.8 billion individuals — will have overweight or obesity by 2050,^4^ while the International Diabetes Federation's 11th Diabetes Atlas projects 853 million adults with diabetes by 2050 and over one trillion dollars in annual health expenditure.^5^ The recent Lancet Commission on Clinical Obesity, endorsed by more than 75 organizations, has further underscored the systemic nature of this crisis by proposing a redefinition of obesity that moves beyond body mass index to incorporate functional organ-specific assessments.^6^
+
+Bariatric-metabolic surgery remains the most effective intervention for durable weight loss and T2DM remission in individuals with severe obesity. The 10-year follow-up of the Mingrone trial demonstrated T2DM remission rates of 25 % after Roux-en-Y gastric bypass (RYGBP) and 50 % after biliopancreatic diversion versus 5.5 % under medical therapy, with surgery reducing diabetes-related complications by 93 %.^7^ The SM-BOSS and SLEEVEPASS 10-year randomized comparisons of sleeve gastrectomy (SG) versus RYGBP showed broadly comparable weight-loss durability with RYGBP exhibiting modest superiority on excess weight loss and T2DM remission.^8,9^ The STAMPEDE 5-year outcomes confirmed the superiority of both procedures over intensive medical therapy for glycemic control,^10^ and the recent ARMMS-T2D 12-year consortium data have extended these benefits to health-related quality of life;^11^ a meta-analysis of nine randomized trials with ≥ 5-year follow-up corroborated RYGBP's superiority for T2DM remission while confirming SG's favorable gastroesophageal-reflux profile.^12^ Crucially, the metabolic benefits of surgery extend far beyond caloric restriction and malabsorption, reflecting a profound remodeling of the enteropancreatic hormonal milieu: RYGBP produces marked amplification of postprandial GLP-1 and PYY secretion through accelerated nutrient delivery to distal L-cells,^13,14^ while SG achieves durable ghrelin suppression through fundectomy-mediated removal of ghrelin-producing X/A-like cells.^15^ These procedure-specific hormonal remodeling patterns create physiologically non-equivalent enteropancreatic states that demand separate analytical treatment, and define metabolic phenotypes with greater fidelity than any static marker individually.^16-18^
+
+The biological rationale for multi-hormone trajectory analysis is grounded in the incretin system's architecture. GLP-1 and glucose-dependent insulinotropic polypeptide (GIP) together account for 50–70 % of postprandial insulin secretion — the incretin effect — through complementary but non-redundant receptor-mediated mechanisms.^19^ The recent resolution of the GIP paradox — demonstrating that GIPR agonism and antagonism decrease body weight through mechanistically distinct central nervous system pathways^20^ — has fundamentally altered the interpretation of GIP trajectories in disease and post-surgical cohorts, shifting emphasis from absolute circulating levels to receptor-level and temporal signaling dynamics. The emerging multi-agonist pharmacological landscape — exemplified by tirzepatide's dual GIP/GLP-1 receptor co-agonism,^21^ semaglutide's GLP-1 receptor agonism,^22^ retatrutide's triple GLP-1/GIP/glucagon agonism,^23^ CagriSema's amylin/GLP-1 dual targeting,^24^ and survodutide's GLP-1/glucagon dual agonism in MASH^25^ — further validates the principle that metabolic improvement depends on the coordinated modulation of multiple enteropancreatic axes, not isolated single-hormone targeting. Complementary discoveries in the 2024–2026 period have substantially enriched the biological context: gastric Piezo1 mechanosensitive channels regulate ghrelin synthesis and food intake,^26,27^ the endogenous ghrelin-receptor antagonist LEAP2 modulates appetite homeostasis,^28^ microbial DPP-4 isozymes degrade incretins in the gut lumen before absorption,^29^ the GLP-1(9–36) metabolite retains independent vasodilatory and neuroprotective bioactivity,^30^ and the liver–α-cell amino-acid axis reframes the interpretation of glucagon dynamics across disease and post-surgical states.^31^
 
 ## Conceptual frame: physiologic periprandial responsiveness
 
@@ -40,25 +51,36 @@ This responsiveness is shaped by a multidimensional set of variables that no sin
 
 ## Statistical foundations
 
-Sparse functional data analysis and functional principal component analysis^14^ — specifically the sparse PACE algorithm of Yao, Müller and Wang,^7^ its multivariate extension by Happ and Greven,^8^ and the *mixed-effects fast covariance estimation* of Li, Wang, Liu and Greven^9^ — provide the natural methodological framework to decompose irregularly sampled periprandial trajectories into orthogonal modes of variation (global amplitude PC1, early-vs-late redistribution PC2, higher-order shape PC3). The Chiou, Chen and Yang normalization^10^ preserves balanced per-hormone contribution in the joint decomposition by equalizing integrated variances, operationally indispensable when hormone scales differ across three orders of magnitude (ghrelin ~200 pmol/L vs. GLP-1 active ~5 pmol/L). Complementarily, the PTP/IEP classification framework (v1.0, April 2026) formalizes cohort-time-arm taxonomy through six *Periprandial Transition Profiles* per analyte (Preserved, Borderline Impaired, Impaired, Blunted, Borderline Altered, Altered — plus three post-intervention classes Recovered, Borderline Enhanced, Enhanced) and five *Integrated Enteropancreatic Pattern Types* (I–V), constituting a deterministic biological taxonomy complementary to the multivariate inferential analysis.
+Sparse functional data analysis and functional principal component analysis^32^ — specifically the sparse PACE algorithm of Yao, Müller and Wang,^33^ its multivariate extension by Happ and Greven,^34^ and the *mixed-effects fast covariance estimation* of Li, Wang, Liu and Greven^35^ — provide the natural methodological framework to decompose irregularly sampled periprandial trajectories into orthogonal modes of variation (global amplitude PC1, early-vs-late redistribution PC2, higher-order shape PC3). The Chiou, Chen and Yang normalization^36^ preserves balanced per-hormone contribution in the joint decomposition by equalizing integrated variances, operationally indispensable when hormone scales differ across three orders of magnitude (ghrelin ~200 pmol/L vs. GLP-1 active ~5 pmol/L). Complementarily, the PTP/IEP classification framework (v1.0, April 2026) formalizes cohort-time-arm taxonomy through six *Periprandial Transition Profiles* per analyte (Preserved, Borderline Impaired, Impaired, Blunted, Borderline Altered, Altered — plus three post-intervention classes Recovered, Borderline Enhanced, Enhanced) and five *Integrated Enteropancreatic Pattern Types* (I–V), constituting a deterministic biological taxonomy complementary to the multivariate inferential analysis.
 
 ## Aim
 
-Here we apply both frameworks in integrated form to an aggregated master table of 71 cohort-time-arm tuples from 23 published source studies^20-42^ covering 11 analyte-forms. The operational objective is to establish and statistically validate six cohort-specific multi-hormone signatures — reference `no_obese_without_T2DM`, `Obesity` without T2DM, `T2DM` without obesity, co-occurring `Obesity_T2DM`, post-`SG`, post-`RYGBP` — under a fully pre-registered protocol (OSF DOI [10.17605/OSF.IO/3CZRE](https://osf.io/3czre)), with companion analysis code archived at Zenodo (concept DOI [10.5281/zenodo.19743544](https://zenodo.org/doi/10.5281/zenodo.19743544); current version v1.2 [10.5281/zenodo.19750294](https://zenodo.org/records/19750294)). Per the user-specified scope of this study, the IEP Type taxonomy is presented in two parallel tracks — without and with glycemic subclassification — to deepen the analysis and to highlight the added value of glycemic subphenotyping. Glycemic subclassification (a/b/c) is restricted to Types III, IV, and V; Patterns I and II by definition imply preserved or recovered glycemic regulation (subtype a) and admit no other glycemic subtype. The study is reported in accordance with the STROBE cohort checklist;^17^ TRIPOD+AI^18^ is not applicable because the analysis is descriptive-inferential rather than predictive at the individual level.
+Here we apply both frameworks in integrated form to an aggregated master table of 71 cohort-time-arm tuples from 23 published source studies^43-65^ covering 11 analyte-forms. The operational objective is to establish and statistically validate six cohort-specific multi-hormone signatures — reference `no_obese_without_T2DM`, `Obesity` without T2DM, `T2DM` without obesity, co-occurring `Obesity_T2DM`, post-`SG`, post-`RYGBP` — under a fully pre-registered protocol (OSF DOI [10.17605/OSF.IO/3CZRE](https://osf.io/3czre)), with companion analysis code archived at Zenodo (concept DOI [10.5281/zenodo.19743544](https://zenodo.org/doi/10.5281/zenodo.19743544); current version v1.2 [10.5281/zenodo.19750294](https://zenodo.org/records/19750294)). Per the user-specified scope of this study, the IEP Type taxonomy is presented in two parallel tracks — without and with glycemic subclassification — to deepen the analysis and to highlight the added value of glycemic subphenotyping. Glycemic subclassification (a/b/c) is restricted to Types III, IV, and V; Patterns I and II by definition imply preserved or recovered glycemic regulation (subtype a) and admit no other glycemic subtype. The study is reported in accordance with the STROBE cohort checklist;^40^ TRIPOD+AI^41^ is not applicable because the analysis is descriptive-inferential rather than predictive at the individual level.
 
 # Methods
 
-## Design and inferential unit
+## 2.1 Design, data source, and inferential scope
 
-Ecological meta-analysis at the cohort-time-arm level (v10.0 §4.1). The master table (input SHA-256 `ce2e343d...`) consolidates 71 unique (Author × Cohort) tuples from 25 independent publications. Forty-seven heterogeneous source labels are mapped to six canonical cohorts via pre-registered normalization rules (decisions D1–D4 in the preregistration YAML): pre-surgery cohorts pooled into Obesity or Obesity_T2DM with `surgery_status` metadata (D1); post-bariatric T2DM status captured as `had_t2dm_pre_surgery ∈ {TRUE, FALSE, unknown}` (D2); six caloric-restriction labels pooled into Obesity with a `caloric_restriction_post` tag in a sensitivity column (D3); the "Healthy Middle-aged" obesity descriptor does not define a distinct cohort and is pooled into Obesity (D4).
+Ecological meta-analysis at the cohort-time-arm level (v10.0 §4.1). The master table (input SHA-256 `ce2e343d...`) consolidates 71 unique (Author × Cohort) tuples from 25 independent publications. Because all data derive from published aggregate summaries rather than individual participant records, the primary unit of analysis is the cohort-time-arm — defined as a unique combination of source study, clinical cohort, intervention status, and post-intervention time point. The inferential unit is declared explicitly for every result: cohort-time-arm level for FPCA-derived descriptors, and source-reported scalar-summary level for fasting or AUC values extracted directly from publications.
 
-## Hormone classification by biological role
+## 2.2 Cohort definitions
+
+Forty-seven heterogeneous source labels were mapped to six canonical cohorts via pre-registered normalization rules (decisions D1–D4 in the preregistration YAML):
+
+- **D1.** Pre-surgery cohorts pooled into `Obesity` or `Obesity_T2DM` with `surgery_status` metadata.
+- **D2.** Post-bariatric T2DM status captured as `had_t2dm_pre_surgery ∈ {TRUE, FALSE, unknown}`.
+- **D3.** Six caloric-restriction labels pooled into `Obesity` with a `caloric_restriction_post` tag retained in a sensitivity column.
+- **D4.** The "Healthy Middle-aged" obesity descriptor does not define a distinct cohort and is pooled into `Obesity`.
+
+The six canonical cohorts are: `no_obese_without_T2DM` (reference; non-obese, non-diabetic, no metabolic-surgery history), `Obesity` (BMI ≥ 30 kg/m² without T2DM or IGT), `T2DM` (diagnosed T2DM per source criteria, without concurrent obesity), `Obesity_T2DM` (co-occurring obesity and T2DM), `SG` (post-sleeve gastrectomy at specified post-operative time points), and `RYGBP` (post-Roux-en-Y gastric bypass at specified time points). SG and RYGBP are treated as physiologically non-equivalent procedures and never pooled.
+
+## 2.3 Analyte panel and biological-role classification
 
 The eleven analyte-forms are organized by biological dominance phase, complementary to the framework-level *secretion-dominant / suppression-dominant / glycemic-regulation* groupings of PTP framework v1.0 §2.2:
 
 - **Fasting hormones** (active during the inter-meal/fasting state, with key inhibition events at meal onset): **ghrelin** (total and acylated) and **glucagon**. Ghrelin exerts critical biological functions during fasting — maintaining neuronal plasticity, inhibiting fasting insulin secretion, and modulating anxiety; chronic post-bariatric ghrelin reduction has been linked to addictive and suicidal behaviors. Glucagon stabilizes fasting glycemia via hepatic, pancreatic, and peripheral glucoregulatory effects.
 
-- **Postprandial hormones** (active during the post-meal nutrient-stimulated phase): **GIP** (total and active), **GLP-1** (total and active), **PYY** (total and 3-36), and **insulin**. These hormones drive nutrient-stimulated insulin secretion, satiety signaling, and glycemic excursion control.^13^
+- **Postprandial hormones** (active during the post-meal nutrient-stimulated phase): **GIP** (total and active), **GLP-1** (total and active), **PYY** (total and 3-36), and **insulin**. These hormones drive nutrient-stimulated insulin secretion, satiety signaling, and glycemic excursion control.^19^
 
 - **Glycemic regulation signal**: **glucose**. Not a secretory hormone but the regulated variable whose periprandial trajectory reflects the integrated activity of all of the above.
 
@@ -66,41 +88,123 @@ Glycemia is regulated during fasting by ghrelin-mediated insulin inhibition plus
 
 The basal (fasting) value $B_{ih}$ is therefore included as the first coordinate of the per-analyte PTP classification vector $Z_{ih} = [z(B_{ih}), z(\xi_{ih1}), z(\xi_{ih2}), z(\xi_{ih3})]$. Omitting it would discard the ability to identify periprandial changes that originate in the fasting state (e.g., elevated fasting GIP that precedes islet dysfunction and dysinsulinemia even before prediabetes onset; reduced fasting ghrelin in obesity inversely correlated with BMI; recovered fasting ghrelin in long-term post-RYGBP patients with sustained weight loss).
 
-## Pseudo-individualization and variance priors
+Total and active forms of GIP and GLP-1 were analyzed as separate analyte-form strata because DPP-4 processing differentially inactivates GIP and GLP-1 while activating PYY(1–36) to PYY(3–36); the GLP-1(9–36) metabolite retains independent vasodilatory and neuroprotective bioactivity,^30^ and microbial DPP-4 isozymes that degrade incretins in the gut lumen before absorption^29^ provide additional mechanistic justification for distinguishing total from active forms.
+
+## 2.4 Challenge-class handling and time alignment
+
+Three challenge classes are represented in the master table: solid mixed-meal test (SMMT), liquid mixed-meal test (LMMT), and oral glucose tolerance test (OGTT). The common analysis window is defined as [0, 180] minutes, with all trajectories aligned to $t = 0$ at stimulus ingestion. Time points are mapped to a common 1-min evaluation grid via piecewise cubic Hermite interpolating polynomial (PCHIP) interpolation, which preserves monotonicity and prevents overshoot artifacts at physiological boundaries (e.g., ghrelin nadir, glucose return to baseline). Basal concentration $B_{ih}$ is defined as the $t = 0$ value for the reference cohort and the nearest-to-zero value for the study cohorts. Where within-stratum sample sizes are insufficient, SMMT and LMMT are combined into a "mixed meal" super-stratum with a binary covariate encoding stimulus form; OGTT is analyzed separately.
+
+## 2.5 Unit harmonization and data extraction
+
+All peptide hormones are expressed in pmol/L and glucose in mmol/L (SI units), with conventional units reported parenthetically per JCEM convention. Conversion factors apply standard molecular weights when source studies report in pg/mL, μU/mL, or mg/dL. SEM is converted to SD via $\text{SD} = \text{SEM} \times \sqrt{n}$ where $n$ is the reported sample size. Time-course data not available in tables are extracted from published figures using WebPlotDigitizer v4.7 under a double-extraction protocol with intraclass correlation coefficient (ICC) target ≥ 0.95. Tabular data take priority over digitized values per a strict source-evidence hierarchy (canonical CSV master table → extracted numerical tables → digitized values).
+
+## 2.6 Pseudo-individualization and variance priors
 
 The master reports cohort means without SD/SEM; trajectory variance is estimated via pseudo-IPD following v10.0 §4.2. For each (Author, cohort, hormone), M = 1000 synthetic trajectories are sampled from a Gaussian process $\text{GP}(\mu_{\text{cohort}}(t), K_\rho(s, t))$ with continuous-time AR(1) kernel $K_\rho(s, t) = \rho^{|s-t|/30\,\text{min}}$ and marginal variance $\sigma_h^2(t) = (\text{CV}_h \times \mu_h(t))^2$, where $\text{CV}_h$ is the hormone-specific coefficient of variation drawn from literature (upper-bound typical values: ghrelin 0.40, GLP-1 total 0.35, GIP total 0.30, insulin 0.20, glucose 0.12; full table in the preregistration YAML). The primary run uses $\rho = 0.5$ with CV multiplier 1.0; sensitivity analyses cover $\rho \in \{0.3, 0.7, 0.9\}$ and CV multipliers $\{0.75, 1.25\}$. A deterministic subsample of N = 50 pseudo-subjects per arm (2750 total across 55 productive arms) is used for the mFACEs joint fit; the full M = 1000 archive is deposited on Zenodo.
 
-## Three-stage functional analysis
+## 2.7 Multivariate FPCA — joint mFACEs (primary)
 
-**Stage 1 — univariate (sensitivity, v10.0 §6.2).** Each of 11 analyte-forms is modeled separately by PACE on the dynamic component $d_{ih}(t) = x_{ih}(t) - B_{ih}$ (v10.0 §7.1), with baseline $B_{ih}$ defined as the strict $t = 0$ value for the reference cohort and the nearest-to-zero value for the study cohorts. Minimum 3 observations per subject per hormone; FVE 0.95.
+Adaptation of Li, Wang, Liu and Greven:^35^ per-analyte FACE fits via `face::face.sparse`; pairwise cross-covariance blocks estimated by 2-D tensor-product penalized splines (`mgcv::te`); explicit Chiou normalization^36^ applied at block assembly. BLUP score recovery retains measurement-error variance $\sigma^2$ in the observation model with adaptive ridge regularization. Joint eigendecomposition produces K retained components satisfying FVE ≥ 0.90 (primary) or 0.95 (sensitivity); identifiability requires $N/K_{\text{eff}} > 10$ (v10.0 §7.3). Sign alignment of eigenfunctions across bootstrap replicates is enforced via `flipFuns()` with Procrustes rotation.
 
-**Stage 2 — mFACEs joint (primary, v10.0 §7.4).** Adaptation of Li, Wang, Liu and Greven:^9^ per-analyte FACE fits via `face::face.sparse`; pairwise cross-covariance blocks estimated by 2-D tensor-product penalized splines (`mgcv::te`); explicit Chiou normalization^10^ applied at block assembly. BLUP score recovery retains measurement-error variance $\sigma^2$ in the observation model with adaptive ridge regularization. Joint eigendecomposition produces K retained components satisfying FVE ≥ 0.90 (primary) or 0.95 (sensitivity); identifiability requires $N/K_{\text{eff}} > 10$ (v10.0 §7.3).
+## 2.8 Univariate FPCA (sensitivity)
 
-**Stage 3 — inference and dual classification.** Formal inference by FANOVA permutation (B = 5000 cohort-label permutations per retained PC; BH-FDR α = 0.05) plus Pillai multivariate contrasts. Simultaneous 95 % bands via sup-t bootstrap^19^ (B = 2000). Dual classification:
+Each of 11 analyte-forms is modeled separately by PACE on the dynamic component $d_{ih}(t) = x_{ih}(t) - B_{ih}$ (v10.0 §7.1), with baseline $B_{ih}$ defined as the strict $t = 0$ value for the reference cohort and the nearest-to-zero value for the study cohorts. Minimum 3 observations per subject per hormone; FVE 0.95. The semantic structure followed: PC1 = global amplitude; PC2 = early-versus-late temporal redistribution (phase/timing shift); PC3 = biphasic or higher-order temporal shape. Components that cannot be stably oriented physiologically are retained numerically but the physiologic label is withheld.
+
+## 2.9 Inference and dual classification
+
+Formal inference by FANOVA permutation (B = 5000 cohort-label permutations per retained PC; BH-FDR α = 0.05) plus Pillai multivariate contrasts. Simultaneous 95 % bands via sup-t bootstrap^42^ (B = 2000). Dual classification:
 
 - **Joint-mFPC 6-class** on the first three retained multivariate scores $(\xi_1, \xi_2, \xi_3)$: pseudo-subjects z-standardized against the reference distribution, then assigned to one of six classes (Preservado, Impairment limítrofe, Impaired, Blunted, Enhanced, Altered) with pre-registered precedence Altered > Blunted/Enhanced > Impaired > Impairment limítrofe > Preservado.
 
-- **Per-analyte PTP → IEP Type I–V** (framework v1.0): classification vector $Z_{ih}$ from univariate PACE fits, six Primary PTP classes assigned with pathophysiological filter (Altered restricted to GIP, insulin, glucose, ghrelin; upper-tail GLP-1/PYY/glucagon routed to Enhanced/Borderline Enhanced when glucose subtype = a). Cohort-time-arm IEP Types assigned by deterministic precedence per §6.4.
+- **Per-analyte PTP → IEP Type I–V** (framework v1.0): classification vector $Z_{ih}$ from univariate PACE fits, six Primary PTP classes assigned with pathophysiological filter (Altered restricted to GIP, insulin, glucose, ghrelin; upper-tail GLP-1/PYY/glucagon routed to Enhanced/Borderline Enhanced when glucose subtype = a). Cohort-time-arm IEP Types assigned by the deterministic 8-rule precedence hierarchy specified in §2.10.
 
-## PTP/IEP classification scope and glycemic subclassification
+## 2.10 Deterministic PTP/IEP construction
+
+The PTP/IEP framework v1.0 (April 2026) is reproduced operationally below as the normative specification used to generate every IEP assignment in the Results section. The framework distinguishes (a) six **primary Periprandial Transition Profiles** assigned per analyte-form to disease-state cohorts, (b) three additional **secondary (post-intervention) PTPs**, (c) five **Integrated Enteropancreatic Pattern Types** (I–V) with .I/.II refinement subtypes, and (d) three **glycemic subtypes** (a/b/c) restricted to Types III, IV, V. Classification proceeds by computing the standardized analyte-specific vector $Z_{ih} = [z(B_{ih}), z(\xi_{ih1}), z(\xi_{ih2}), z(\xi_{ih3})]$ and applying the percentile-fallback operational rules.
+
+### 2.10.1 Primary PTP categories (cross-sectional disease characterization)
+
+| PTP category | Operational percentile fallback (basal / PC1) | Physiological meaning |
+|---|---|---|
+| **Preserved** | Within central reference band P25–P75; no primary coordinate crosses tail abnormality | Reference-concordant physiologic periprandial responsiveness |
+| **Borderline Impaired** | P10–P25 (mild lower-tail); no primary coordinate < P5 | Mild reduction in physiologic periprandial responsiveness |
+| **Impaired** | P5–P10 (moderate lower-tail); no primary coordinate < P5 | Moderately reduced responsiveness |
+| **Blunted** | < P5 (severe lower-tail) | Severely attenuated responsiveness |
+| **Borderline Altered** | P75–P95 (mild upper-tail in pathophysiologically relevant direction) | Mildly abnormal upper-tail dysregulation |
+| **Altered** | ≥ P95 (extreme upper-tail) | Marked dysregulation; reserved for excessive GIP, hyperinsulinemic patterns, hyperglycemic excursion, and context-specific ghrelin excess |
+
+Upper-tail classes (Borderline Altered, Altered) are applied **only when the excess is pathophysiologically meaningful for that analyte in that context**: high GLP-1 in cross-sectional disease cohorts is not automatically classified as Altered without clear biological justification.
+
+### 2.10.2 Secondary PTPs (post-intervention)
+
+For post-intervention arms (caloric restriction, bariatric surgery, pharmacotherapy), three additional PTPs apply: **Recovered** (previously abnormal profile shifts into the reference-concordant region; explicit pre→post improvement required), **Borderline Enhanced** (mild physiologically coherent supra-reference increase with preserved/recovered glucose; reserved primarily for GLP-1 and contextually insulin), and **Enhanced** (marked physiologically coherent supra-reference increase, reserved mainly for GLP-1 and carefully selected insulin responses with preserved glycemic regulation). Enhanced is **not** assigned if the accompanying glucose pattern is altered or dysglycemic; such profiles are classified as Altered. Weight loss is treated as a contextual modifier, not a hard gate.
+
+### 2.10.3 Non-glucose PTP state groups
+
+For integrated typing, non-glucose analyte-level PTPs are collapsed into the following ordered groups:
+
+- $R = \{\text{Preserved, Recovered}\}$
+- $L_1 = \{\text{Borderline Impaired}\}$
+- $L_2 = \{\text{Impaired, Blunted}\}$
+- $U_1 = \{\text{Borderline Enhanced}\}$
+- $U_2 = \{\text{Enhanced}\}$
+- $D_1 = \{\text{Borderline Altered}\}$
+- $D_2 = \{\text{Altered}\}$
+
+### 2.10.4 Glucose subtype groups
+
+Glucose is treated as a glycemic regulation signal rather than as an enteropancreatic hormone for integrated assignment, and its PTP is collapsed into three glycemic subtypes:
+
+- $a = \{\text{Preserved, Recovered}\}$
+- $b = \{\text{Borderline Impaired, Impaired, Blunted}\}$
+- $c = \{\text{Borderline Altered, Altered}\}$
+
+### 2.10.5 Classifiability rule
+
+An integrated pattern is assigned only when (1) glucose PTP is classifiable, (2) at least two non-glucose analyte-level PTPs are classifiable, and (3) the classifiable non-glucose set includes at least one pancreatic effector signal (insulin) and at least one gut-hormone signal (ghrelin, GIP, or GLP-1). Cohort-time-arms not meeting these criteria are classified as not integrable; missing analytes are not imputed.
+
+### 2.10.6 Deterministic precedence hierarchy (8 rules)
+
+Integrated pattern assignment follows the strict 8-rule deterministic precedence hierarchy (rules evaluated in order; first satisfying rule terminates assignment):
+
+1. If any non-glucose analyte was Altered → **Type IV.II**.
+2. Else if any non-glucose analyte was Borderline Altered → **Type IV.I**.
+3. Else if any non-glucose analyte was Enhanced:
+   a. if glucose subtype = a and no non-glucose analyte was in $L_1$ or $L_2$ → **Type II.II**;
+   b. otherwise → **Type V.II**.
+4. Else if any non-glucose analyte was Borderline Enhanced:
+   a. if glucose subtype = a and no non-glucose analyte was in $L_1$ or $L_2$ → **Type II.I**;
+   b. otherwise → **Type V.I**.
+5. Else if any non-glucose analyte was Impaired or Blunted → **Type III.II**.
+6. Else if any non-glucose analyte was Borderline Impaired → **Type III.I**.
+7. Else if all classifiable non-glucose analytes were Preserved → **Type I.I**.
+8. Else if at least one non-glucose analyte was Recovered and all remaining classifiable non-glucose analytes were Preserved or Recovered → **Type I.II**.
+
+All five integrated types (Type I Physiological; Type II Supra-physiological coherent; Type III Infra-physiological; Type IV Dysphysiological; Type V Supra-physiological with residual dysregulation) are then subtyped by glycemic status (a/b/c) for Types III, IV, V; Patterns I and II by definition imply preserved or recovered glycemic regulation (subtype a) and admit no other glycemic subtype.
+
+### 2.10.7 PTP/IEP classification scope and glycemic subclassification
 
 The IEP framework distinguishes five integrated patterns (Type I physiological, Type II supra-physiological coherent, Type III infra-physiological, Type IV dysphysiological, Type V supra-physiological with residual dysregulation) with refinement subtypes (.I/.II reflecting borderline vs marked deviation). Glycemic subclassification a/b/c is **restricted to Types III, IV, and V**, where dysregulation of the enteropancreatic axis can plausibly couple to glycemic dysregulation. **Patterns I and II by definition exclude dysglycemic phenomena**: a Type I.I/I.II profile is reference-concordant or restored across all classifiable non-glucose analytes, and a Type II.I/II.II profile is supra-physiological coherent with preserved glucose by gating rule. Therefore the origin of glucose alterations in Patterns I and II would not be secondary to enteropancreatic dysregulation, and glycemic subtypes are not applied to these patterns. This restriction is conceptually consistent with the framework's grounding on enteropancreatic secretory dynamics and acknowledges as a partial weakness that dynamic secretion is not always proportional to biological action capacity (Type II as the ideal therapeutic restoration target embodies this distinction precisely).
 
 For Patterns III, IV, and V the three subtypes are: **subtype a** glucose preserved or recovered; **subtype b** glucose with borderline impairment, impairment, or blunting (lower-tail); **subtype c** glucose with borderline alteration or alteration (upper-tail dysregulation). Per the user-specified scope of this study, results are presented in two parallel tracks: (i) IEP Types I–V without glycemic subclassification — the integrated enteropancreatic pattern alone, deepening insight into the enteropancreatic axis irrespective of the glycemic outcome; and (ii) IEP Types with glycemic subclassification on III/IV/V only — adding the glycemic subphenotype as a complementary layer.
 
-## Borderline cutoff design and reference cohort selection
+### 2.10.8 Statistical and reporting rules
+
+Five reporting rules govern the integrated typing output: (i) integrated typing is reported only in the classifiable subset; (ii) exact frequency estimates are interpreted as ecological cohort-time-arm counts, not participant-level prevalence; (iii) primary-corpus Type I–V frequencies are reported separately from corroborative source-reported pattern information; (iv) the secondary orthogonal shape-balance descriptor derived from $\xi_2$ and $\xi_3$ may be reported descriptively but does not replace $\xi_2$ and $\xi_3$ in integrated typing; and (v) when contradictory non-glucose PTP states are present, the precedence hierarchy in §2.10.6 determines the final integrated type.
+
+## 2.11 Borderline cutoff design and reference cohort selection
 
 The PTP percentile thresholds use borderline bands at P10–P25 (lower-tail Borderline Impaired) and P75–P95 (upper-tail Borderline Altered), with strict-tail flags at <P5 (Blunted) and ≥P95 (Altered). The choice of borderline bands rather than strict P25/P75 quartile boundaries with binary outcomes increases sensitivity to mild deviations and avoids dichotomizing subjects whose periprandial responsiveness lies near the reference periphery. This design parallels the diagnostic logic that medicine uses with imperfect statistical anchors (BMI as a population statistic; glucose as a consequence of beta-cell mass loss, insulin resistance, and enteropancreatic defects — neither captures the underlying pathophysiology). Diagnostic frameworks anchored to statistics (BMI cutoffs) or downstream consequences (glucose thresholds) yield pathologies that resist remission; frameworks anchored to underlying mechanisms (e.g., bariatric surgery's enteropancreatic remodeling) yield true remission. The pursuit of Pattern Type II (supra-physiological enteropancreatic responsiveness with preserved glycemia) as the ideal restoration target embodies this mechanism-anchored philosophy.
 
 The reference cohort `no_obese_without_T2DM` (non-obese, non-diabetic) is selected because (i) intervention cohorts cannot serve as their own physiological reference — they are by definition pathological in the pre-intervention state; (ii) comparing post-intervention cohorts against the reference establishes the therapeutic value of the intervention more accurately than pre-vs-post pairing alone; and (iii) weight is determinant for discriminating intervention effects on PTPs, especially for ghrelin where fasting baseline and postprandial suppression both correlate inversely with BMI and with weight loss. The framework retains capacity for future expansion to secondary PTPs (paired pre-vs-post within cohort) and to additional intervention modalities (medications, dietary interventions, vagal stimulation, endoluminal procedures, gastric plication) that act on gastric, duodenal, or small-bowel regions through mechanisms distinct from resective bariatric surgery.
 
-## Validation
+## 2.12 Validation and sensitivity analyses
 
-Classification-stage bootstrap (B = 2000): scores from the primary fit held fixed; reference cohort resampled with replacement to perturb the z-score reference distribution; modal class per pseudo-subject + stability = Pr(modal). Pre-registered target: ≥ 80 % of subjects with stability ≥ 0.80. Pipeline-stage bootstrap (B = 50 primary + B = 300 extended Zenodo archive): full re-fit on resampled pseudo-IPD. Sensitivity matrices across $\rho$ and CV multipliers report K, incretin loading, and qualitative cohort ordering.
+Classification-stage bootstrap (B = 2000): scores from the primary fit held fixed; reference cohort resampled with replacement to perturb the z-score reference distribution; modal class per pseudo-subject + stability = Pr(modal). Pre-registered target: ≥ 80 % of subjects with stability ≥ 0.80. Pipeline-stage bootstrap (B = 50 primary + B = 300 extended Zenodo archive): full re-fit on resampled pseudo-IPD. Sensitivity matrices across $\rho$ and CV multipliers report K, incretin loading, and qualitative cohort ordering. Pre-specified sensitivity analyses include: (i) PTP-threshold displacement by ±0.5 SD with reporting of the proportion of assignments that change; (ii) leave-one-axis-out integrated typing repeated excluding each analyte in turn; (iii) ecological-robustness pseudo-IPD generated under AR(1) within-cohort temporal correlations $\rho \in \{0.3, 0.5, 0.7, 0.9\}$; and (iv) challenge-class pooling — comparison of stratum-specific vs. pooled SMMT+LMMT results with a binary covariate.
 
-## Computational environment
+## 2.13 Reproducibility and computational environment
 
-R 4.5.3 arm64 on Apple M4 Pro (macOS Sequoia 15), BLAS via Apple Accelerate; parallelism via `future::plan(multisession, workers = 8)`. Key packages: `fdapace` 0.6.0, `face` 0.1-7, `MFPCA` 1.3-11, `funData` 1.3-9, `conformalInference.fd` 1.1.1, `roahd` 1.4.3, `mgcv` 1.9, `pointblank` 0.12, `irr` 0.84. Seed 20260422 across all stochastic procedures. `renv.lock` and session info deposited on Zenodo.
+R 4.5.3 arm64 on Apple M4 Pro (macOS Sequoia 15), BLAS via Apple Accelerate; parallelism via `future::plan(multisession, workers = 8)`. Key packages: `fdapace` 0.6.0, `face` 0.1-7, `MFPCA` 1.3-11, `funData` 1.3-9, `conformalInference.fd` 1.1.1, `roahd` 1.4.3, `mgcv` 1.9, `pointblank` 0.12, `irr` 0.84. Seed 20260422 across all stochastic procedures. Random seeds were set and recorded for all stochastic operations (MCMC sampling, bootstrap resampling, pseudo-IPD generation). The analytical pipeline was pre-registered on OSF using the Secondary Data Preregistration template (DOI [10.17605/OSF.IO/3CZRE](https://osf.io/3czre)). Reporting adhered to a composite checklist: STROBE^40^ for observational design elements, TRIPOD+AI^41^ Items 16 (full model specification) and 23 (open code), and FDA-specific items: smoothing method, basis type, regularization parameter selection, number and interpretation of FPCs, and software versions. `renv.lock` and session info are deposited on Zenodo.
 
 # Results
 
@@ -162,9 +266,9 @@ Classification-stage bootstrap (B = 2000) yielded **81.6 %** of pseudo-subjects 
 
 **Conceptual contribution: physiologic periprandial responsiveness.** The replacement of the conventional construct *secretory capacity* by *physiologic periprandial responsiveness* throughout the framework is more than terminological substitution. *Secretory capacity* is operationally measured by maximal-stimulation tests and reflects the biosynthetic pipeline (ER folding, hormone storage, granule biogenesis); it cannot describe the inhibition phase of a hormone like ghrelin, which is biologically defined by suppressing under satiety, nor can it capture the bidirectional FPCA-decomposed dynamics that this framework analyzes. *Physiologic periprandial responsiveness* unifies fasting, postprandial, secretory, and inhibitory phases under a single multi-analyte multi-state construct that is mathematically tractable via FPCA on multi-hormone trajectories. The neologism formalizes a distinction that the literature has long needed but has not had a precise term to express. The framework's evaluation of fasting hormones (ghrelin, glucagon) during their dominant (fasting) phase and of postprandial hormones (GIP, GLP-1, insulin, PYY) during their dominant (postprandial) phase, all anchored to the basal value, captures the entirety of the enteropancreatic responsive system rather than a single-direction projection of it.
 
-**Post-bariatric signature.** RYGBP combines 37 % Altered + 12 % Enhanced in the joint rail and 76 % Type IV.II in the IEP rail (62.8 % IV.II.c when stratified by glycemia), with the most pronounced multi-axis remodeling and the largest insulin excursion vs. reference ($\Delta \approx +665$ pmol/L). This reproduces the exaggerated GLP-1 response documented mechanistically by Jørgensen and colleagues^2^ via Exendin-9 blockade and the multi-hormone choreographic shift described by Madsbad, Dirksen and Holst.^1^ SG shows an operationally distinguishable profile — the most pronounced ghrelin suppression across all cohorts (sup-t band $|\Delta| = 143$ pmol/L, 100 % grid significant), consistent with the fundectomy mechanism of Ryan and colleagues^3^ — but does not match RYGBP's combination of dysphysiology with incretin amplification; the distinction supports the v10.0 §3 stance against pooling surgical modalities. Recovered ghrelin TPT in long-term post-RYGBP patients with sustained weight loss, baseline elevation, and significant postprandial suppression is consistent with the multi-axis recovery that the framework can capture only because it includes the basal value.
+**Post-bariatric signature.** RYGBP combines 37 % Altered + 12 % Enhanced in the joint rail and 76 % Type IV.II in the IEP rail (62.8 % IV.II.c when stratified by glycemia), with the most pronounced multi-axis remodeling and the largest insulin excursion vs. reference ($\Delta \approx +665$ pmol/L). This reproduces the exaggerated GLP-1 response documented mechanistically by Jørgensen and colleagues^14^ via Exendin-9 blockade and the multi-hormone choreographic shift described by Madsbad, Dirksen and Holst.^13^ SG shows an operationally distinguishable profile — the most pronounced ghrelin suppression across all cohorts (sup-t band $|\Delta| = 143$ pmol/L, 100 % grid significant), consistent with the fundectomy mechanism of Ryan and colleagues^15^ — but does not match RYGBP's combination of dysphysiology with incretin amplification; the distinction supports the v10.0 §3 stance against pooling surgical modalities. Recovered ghrelin TPT in long-term post-RYGBP patients with sustained weight loss, baseline elevation, and significant postprandial suppression is consistent with the multi-axis recovery that the framework can capture only because it includes the basal value.
 
-**Diabetic and convergent signatures.** T2DM without obesity shows 28 % Impaired + 9 % Blunted in the joint rail and 37 % Type III.II (infra-physiological moderate-severe) in the IEP rail without subclassification — a signature of dominant incretin secretion deficiency compatible with the GIP paradox update of Nauck and Müller.^6^ Importantly, our analysis identifies that elevated *fasting* GIP appears to rise even before islet dysfunction and overt dysinsulinemia, often before prediabetes and even with normal fasting glucose — a finding only detectable because the basal value is included as the first coordinate of the per-analyte classification vector. Obesity_T2DM presents a **convergent** signature with Type IV.II.c dominance at 56 % — partially synergistic dysphysiology beyond the sum of individual cohort patterns, justifying the v10.0 §2.14.3 discordance-escalation rule applied specifically to this arm. Pattern Type II as ideal therapeutic target — supra-physiological coherent enteropancreatic responsiveness with preserved glycemia — embodies the framework's mechanism-anchored diagnostic philosophy and aligns with the bariatric remission literature.^11,15,16^
+**Diabetic and convergent signatures.** T2DM without obesity shows 28 % Impaired + 9 % Blunted in the joint rail and 37 % Type III.II (infra-physiological moderate-severe) in the IEP rail without subclassification — a signature of dominant incretin secretion deficiency compatible with the GIP paradox update of Nauck and Müller.^18^ Importantly, our analysis identifies that elevated *fasting* GIP appears to rise even before islet dysfunction and overt dysinsulinemia, often before prediabetes and even with normal fasting glucose — a finding only detectable because the basal value is included as the first coordinate of the per-analyte classification vector. Obesity_T2DM presents a **convergent** signature with Type IV.II.c dominance at 56 % — partially synergistic dysphysiology beyond the sum of individual cohort patterns, justifying the v10.0 §2.14.3 discordance-escalation rule applied specifically to this arm. Pattern Type II as ideal therapeutic target — supra-physiological coherent enteropancreatic responsiveness with preserved glycemia — embodies the framework's mechanism-anchored diagnostic philosophy and aligns with the bariatric remission literature.^37-39^
 
 **Glycemic subclassification: added value of the dual-track presentation.** The two-track presentation (Types I–V without glycemic subclassification, then Types III/IV/V with subclassification) deepens information without sacrificing the framework's primary IEP claim. The sub-classified track shows that the dominant dysphysiological signature in metabolic-disease cohorts (RYGBP IV.II.c = 63 %, Obesity_T2DM IV.II.c = 56 %) is overwhelmingly coupled to dysglycemia, while a meaningful subset of post-surgical patients (RYGBP IV.II.a = 10 %, SG IV.II.a = 8 %) shows dysphysiology with preserved glycemia — a phenotype potentially associated with post-bariatric reactive hypoglycemia or with optimal therapeutic restoration. This subphenotyping has prognostic and stratification implications that the unsubclassified Type I–V cannot capture; conversely, the unsubclassified track preserves the integrity of the enteropancreatic pattern claim independently of glycemic outcome — the framework's foundational claim that the integrated enteropancreatic pattern is biologically meaningful per se. Reporting both tracks reflects the user-specified scope of this study and acknowledges that within-cohort heterogeneity across glycemic subtypes is an expected feature given the multidimensional variables that modulate physiologic periprandial responsiveness.
 
@@ -192,7 +296,7 @@ Aggregate cohort-level data derived via the ETL are archived alongside the code 
 
 # Reporting Guidelines and Declarations
 
-**Reporting guideline.** Reported in accordance with STROBE cohort^17^ — completed checklist in Supplementary File S1. TRIPOD+AI^18^ declared not applicable (descriptive-inferential mFPCA analysis, not a multivariable clinical prediction model).
+**Reporting guideline.** Reported in accordance with STROBE cohort^40^ — completed checklist in Supplementary File S1. TRIPOD+AI^41^ declared not applicable (descriptive-inferential mFPCA analysis, not a multivariable clinical prediction model).
 
 **Ethics and consent.** Not applicable (ecological meta-analysis of publicly available aggregate data; no primary data collection).
 
@@ -208,97 +312,143 @@ Aggregate cohort-level data derived via the ETL are archived alongside the code 
 
 # References
 
-References are numbered in order of first appearance in the text. Numbers 1–19 are methodological and mechanistic citations woven through the Introduction, Methods, Discussion and Reporting-Guidelines sections. Numbers 20–42 are the 23 primary source studies whose published aggregate data populated the master table (71 Author × Cohort tuples; see Methods §2.1 and Supplementary S3 Verification Appendix). Formatting follows ICMJE/Vancouver recommendations for manuscripts submitted to biomedical journals.
+References are numbered in order of first appearance in the text. Numbers 1–42 are methodological, epidemiological, and mechanistic citations woven through the Introduction, Methods, Discussion and Reporting-Guidelines sections. Numbers 43–65 are the 23 primary source studies whose published aggregate data populated the master table (71 Author × Cohort tuples; see Methods §2.1 and Supplementary S3 Verification Appendix). Formatting follows ICMJE/Vancouver recommendations for manuscripts submitted to biomedical journals.
 
-## Methodological and mechanistic references
+## Methodological, epidemiological, and mechanistic references
 
-1. Madsbad S, Dirksen C, Holst JJ. Mechanisms of changes in glucose metabolism and bodyweight after bariatric surgery. *Lancet Diabetes Endocrinol*. 2014;2(2):152–164. doi:10.1016/S2213-8587(13)70218-3
+1. NCD Risk Factor Collaboration (NCD-RisC). Worldwide trends in underweight and obesity from 1990 to 2022: a pooled analysis of 3663 population-representative studies with 222 million children, adolescents, and adults. *Lancet*. 2024;403(10431):1027–1050. doi:10.1016/S0140-6736(23)02750-2
 
-2. Jørgensen NB, Dirksen C, Bojsen-Møller KN, Jacobsen SH, Worm D, Hansen DL, et al. Exaggerated glucagon-like peptide 1 response is important for improved β-cell function and glucose tolerance after Roux-en-Y gastric bypass in patients with type 2 diabetes. *Diabetes*. 2013;62(9):3044–3052. doi:10.2337/db13-0022
+2. NCD Risk Factor Collaboration (NCD-RisC). Worldwide trends in diabetes prevalence and treatment from 1990 to 2022: a pooled analysis of 1108 population-representative studies with 141 million participants. *Lancet*. 2024;404(10467):2077–2093. doi:10.1016/S0140-6736(24)02317-1
 
-3. Ryan KK, Tremaroli V, Clemmensen C, Kovatcheva-Datchary P, Myronovych A, Karns R, et al. FXR is a molecular target for the effects of vertical sleeve gastrectomy. *Nature*. 2014;509(7499):183–188. doi:10.1038/nature13135
+3. GBD 2023 Disease, Injury, and Risk Factor Burden Collaborators. Burden of 375 diseases and injuries, risk-attributable burden of 88 risk factors, and healthy life expectancy in 204 countries and territories, 1990–2023. *Lancet*. 2025;406(10513):1873–1922. doi:10.1016/S0140-6736(25)01637-X
 
-4. Drucker DJ. GLP-1 physiology informs the pharmacotherapy of obesity. *Mol Metab*. 2022;57:101351. doi:10.1016/j.molmet.2021.101351
+4. GBD 2021 Adult BMI Collaborators. Global, regional, and national prevalence of adult overweight and obesity, 1990–2021, with forecasts to 2050. *Lancet*. 2025;405(10481):813–838. doi:10.1016/S0140-6736(25)00355-1
 
-5. Pournaras DJ, Osborne A, Hawkins SC, Mahon D, Ghatei MA, Bloom SR, et al. The gut hormone response following Roux-en-Y gastric bypass: cross-sectional and prospective study. *Obes Surg*. 2010;20(1):56–60. doi:10.1007/s11695-009-9989-1
+5. Genitsaridi I, Salpea P, Salim A, et al. 11th edition of the IDF Diabetes Atlas: global, regional, and national diabetes prevalence estimates for 2024 and projections for 2050. *Lancet Diabetes Endocrinol*. 2026;14(2):149–156. doi:10.1016/S2213-8587(25)00299-2
 
-6. Nauck MA, Müller TD. Incretin hormones: their role in health and disease. *Diabetologia*. 2023;66(10):1780–1795. doi:10.1007/s00125-023-05956-x
+6. Rubino F, Cummings DE, Eckel RH, et al. Definition and diagnostic criteria of clinical obesity. *Lancet Diabetes Endocrinol*. 2025;13(3):221–262. doi:10.1016/S2213-8587(24)00316-4
 
-7. Yao F, Müller HG, Wang JL. Functional data analysis for sparse longitudinal data. *J Am Stat Assoc*. 2005;100(470):577–590. doi:10.1198/016214504000001745
+7. Mingrone G, Panunzi S, De Gaetano A, et al. Metabolic surgery versus conventional medical therapy in patients with type 2 diabetes: 10-year follow-up of an open-label, single-centre, randomised controlled trial. *Lancet*. 2021;397(10271):293–304. doi:10.1016/S0140-6736(20)32649-0
 
-8. Happ C, Greven S. Multivariate functional principal component analysis for data observed on different (dimensional) domains. *J Am Stat Assoc*. 2018;113(522):649–659. doi:10.1080/01621459.2016.1273115
+8. Kraljevic M, Süsstrunk J, Wölnerhanssen BK, et al. Long-term outcomes of laparoscopic Roux-en-Y gastric bypass vs laparoscopic sleeve gastrectomy for obesity: the SM-BOSS randomized clinical trial. *JAMA Surg*. 2025;160(4):369–377. doi:10.1001/jamasurg.2024.7052
 
-9. Li C, Xiao L, Luo S. Fast covariance estimation for multivariate sparse functional data. *Stat*. 2020;9(1):e245. doi:10.1002/sta4.245
+9. Salminen P, Grönroos S, Helmiö M, et al. Effect of laparoscopic sleeve gastrectomy vs Roux-en-Y gastric bypass on weight loss, comorbidities, and reflux at 10 years: the SLEEVEPASS randomized clinical trial. *JAMA Surg*. 2022;157(8):656–666. doi:10.1001/jamasurg.2022.2229
 
-10. Chiou JM, Chen YT, Yang YF. Multivariate functional principal component analysis: a normalization approach. *Stat Sin*. 2014;24(4):1571–1596. doi:10.5705/ss.2013.305
+10. Schauer PR, Bhatt DL, Kirwan JP, et al. Bariatric surgery versus intensive medical therapy for diabetes — 5-year outcomes. *N Engl J Med*. 2017;376(7):641–651. doi:10.1056/NEJMoa1600869
 
-11. Goldsmith J, Greven S, Crainiceanu C. Corrected confidence bands for functional data using principal components. *Biometrics*. 2013;69(1):41–51. doi:10.1111/j.1541-0420.2012.01808.x
+11. Simonson DC, Gourash WF, Arterburn DE, et al. Health-related quality of life and health utility after metabolic/bariatric surgery vs medical/lifestyle intervention: the ARMMS-T2D Study. *Diabetes Care*. 2025;48(4):537–545. doi:10.2337/dc24-2046
 
-12. Engström BE, Öhrvall M, Sundbom M, Lind L, Karlsson FA. Meal suppression of circulating ghrelin is normalized in obese individuals following gastric bypass surgery. *Int J Obes*. 2007;31(3):476–480. doi:10.1038/sj.ijo.0803440
+12. Monteiro Delgado L, Fabretina de Souza V, Fontel Pompeu B, et al. Long-term outcomes in sleeve gastrectomy versus Roux-en-Y gastric bypass: a systematic review and meta-analysis of randomized trials. *Obes Surg*. 2025;35(8):3246–3257. doi:10.1007/s11695-025-08044-8
 
-13. Holst JJ. The physiology of glucagon-like peptide 1. *Physiol Rev*. 2007;87(4):1409–1439. doi:10.1152/physrev.00034.2006
+13. Madsbad S, Dirksen C, Holst JJ. Mechanisms of changes in glucose metabolism and bodyweight after bariatric surgery. *Lancet Diabetes Endocrinol*. 2014;2(2):152–164. doi:10.1016/S2213-8587(13)70218-3
 
-14. Wang JL, Chiou JM, Müller HG. Functional data analysis. *Annu Rev Stat Appl*. 2016;3(1):257–295. doi:10.1146/annurev-statistics-041715-033624
+14. Jørgensen NB, Dirksen C, Bojsen-Møller KN, Jacobsen SH, Worm D, Hansen DL, et al. Exaggerated glucagon-like peptide 1 response is important for improved β-cell function and glucose tolerance after Roux-en-Y gastric bypass in patients with type 2 diabetes. *Diabetes*. 2013;62(9):3044–3052. doi:10.2337/db13-0022
 
-15. Laferrère B. Bariatric surgery and obesity: influence on the incretins. *Int J Obes Suppl*. 2016;6(Suppl 1):S32–S36. doi:10.1038/ijosup.2016.8
+15. Ryan KK, Tremaroli V, Clemmensen C, Kovatcheva-Datchary P, Myronovych A, Karns R, et al. FXR is a molecular target for the effects of vertical sleeve gastrectomy. *Nature*. 2014;509(7499):183–188. doi:10.1038/nature13135
 
-16. Bojsen-Møller KN, Jacobsen SH, Dirksen C, Jørgensen NB, Reitelseder S, Jensen JE, et al. Early enhancements of hepatic and later of peripheral insulin sensitivity combined with increased postprandial insulin secretion contribute to improved glycemic control after Roux-en-Y gastric bypass. *Diabetes*. 2014;63(5):1725–1737. doi:10.2337/db13-1307
+16. Drucker DJ. GLP-1 physiology informs the pharmacotherapy of obesity. *Mol Metab*. 2022;57:101351. doi:10.1016/j.molmet.2021.101351
 
-17. von Elm E, Altman DG, Egger M, Pocock SJ, Gøtzsche PC, Vandenbroucke JP. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) statement: guidelines for reporting observational studies. *Lancet*. 2007;370(9596):1453–1457. doi:10.1016/S0140-6736(07)61602-X
+17. Pournaras DJ, Osborne A, Hawkins SC, Mahon D, Ghatei MA, Bloom SR, et al. The gut hormone response following Roux-en-Y gastric bypass: cross-sectional and prospective study. *Obes Surg*. 2010;20(1):56–60. doi:10.1007/s11695-009-9989-1
 
-18. Collins GS, Moons KGM, Dhiman P, Riley RD, Beam AL, Van Calster B, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. *BMJ*. 2024;385:e078378. doi:10.1136/bmj-2023-078378
+18. Nauck MA, Müller TD. Incretin hormones: their role in health and disease. *Diabetologia*. 2023;66(10):1780–1795. doi:10.1007/s00125-023-05956-x
 
-19. Montiel Olea JL, Plagborg-Møller M. Simultaneous confidence bands: theory, implementation, and an application to SVARs. *J Appl Econom*. 2019;34(1):1–17. doi:10.1002/jae.2656
+19. Holst JJ. The physiology of glucagon-like peptide 1. *Physiol Rev*. 2007;87(4):1409–1439. doi:10.1152/physrev.00034.2006
+
+20. Gutgesell RM, Khalil A, Liskiewicz A, et al. GIPR agonism and antagonism decrease body weight and food intake via different mechanisms in male mice. *Nat Metab*. 2025;7:1282–1298. doi:10.1038/s42255-025-01294-x
+
+21. Jastreboff AM, Aronne LJ, Ahmad NN, et al. Tirzepatide once weekly for the treatment of obesity. *N Engl J Med*. 2022;387(3):205–216. doi:10.1056/NEJMoa2206038
+
+22. Wilding JPH, Batterham RL, Calanna S, et al. Once-weekly semaglutide in adults with overweight or obesity. *N Engl J Med*. 2021;384(11):989–1002. doi:10.1056/NEJMoa2032183
+
+23. Eli Lilly and Company. TRIUMPH-4: retatrutide Phase 3 topline results [press release]. December 11, 2025.
+
+24. Novo Nordisk. REDEFINE 1: CagriSema in obesity [press release]. 2025. ClinicalTrials.gov NCT05567796.
+
+25. Sanyal AJ, Bedossa P, Engel SS, et al. A Phase 2 randomized trial of survodutide in MASH and fibrosis. *N Engl J Med*. 2024;391:e2401755. doi:10.1056/NEJMoa2401755
+
+26. Zhang J, Zhao Y, Wu S, et al. Mechanosensing by Piezo1 in gastric ghrelin cells contributes to hepatic lipid homeostasis in mice. *Sci Signal*. 2024;17(859):eadq9463. doi:10.1126/scisignal.adq9463
+
+27. Zhao Y, Zhang J, Wu S, et al. Gastric mechanosensitive channel Piezo1 regulates ghrelin production and food intake. *Nat Metab*. 2024;6:458–472. doi:10.1038/s42255-024-00995-z
+
+28. Alic L, Ayaz GE. LEAP2: a novel endogenous regulator of the ghrelin–GHSR axis. *Medicina (Kaunas)*. 2025;61(2):267. doi:10.3390/medicina61020267
+
+29. Aljumaah MR, Roach J, Hu Y, Gunstad J, Azcarate-Peril MA. Microbial dipeptidyl peptidases of the S9B family as host–microbe isozymes. *Sci Adv*. 2025;11(14):eads5721. doi:10.1126/sciadv.ads5721
+
+30. Glotfelty EJ, Olson L, Karlsson TE, Li Y, Greig NH. The metabolite GLP-1(9–36) is neuroprotective and anti-inflammatory in cellular models of neurodegeneration. *J Neuroinflammation*. 2021;18:267. doi:10.1186/s12974-021-02316-7
+
+31. Heeboll S, Risikesan J, Ringgaard S, et al. Comparable glucagon-stimulated amino acid suppression in individuals with and without hepatic steatosis or steatohepatitis. *Am J Physiol Endocrinol Metab*. 2024. doi:10.1152/ajpendo.00187.2024
+
+32. Wang JL, Chiou JM, Müller HG. Functional data analysis. *Annu Rev Stat Appl*. 2016;3(1):257–295. doi:10.1146/annurev-statistics-041715-033624
+
+33. Yao F, Müller HG, Wang JL. Functional data analysis for sparse longitudinal data. *J Am Stat Assoc*. 2005;100(470):577–590. doi:10.1198/016214504000001745
+
+34. Happ C, Greven S. Multivariate functional principal component analysis for data observed on different (dimensional) domains. *J Am Stat Assoc*. 2018;113(522):649–659. doi:10.1080/01621459.2016.1273115
+
+35. Li C, Xiao L, Luo S. mFACEs: multivariate functional data analysis for sparse data using tensor-product B-splines. *Stat Med*. 2021;40(30):6769–6788. doi:10.1002/sim.9206
+
+36. Chiou JM, Chen YT, Yang YF. Multivariate functional principal component analysis: a normalization approach. *Stat Sin*. 2014;24(4):1571–1596. doi:10.5705/ss.2013.305
+
+37. Goldsmith J, Greven S, Crainiceanu C. Corrected confidence bands for functional data using principal components. *Biometrics*. 2013;69(1):41–51. doi:10.1111/j.1541-0420.2012.01808.x
+
+38. Laferrère B. Bariatric surgery and obesity: influence on the incretins. *Int J Obes Suppl*. 2016;6(Suppl 1):S32–S36. doi:10.1038/ijosup.2016.8
+
+39. Bojsen-Møller KN, Jacobsen SH, Dirksen C, Jørgensen NB, Reitelseder S, Jensen JE, et al. Early enhancements of hepatic and later of peripheral insulin sensitivity combined with increased postprandial insulin secretion contribute to improved glycemic control after Roux-en-Y gastric bypass. *Diabetes*. 2014;63(5):1725–1737. doi:10.2337/db13-1307
+
+40. von Elm E, Altman DG, Egger M, Pocock SJ, Gøtzsche PC, Vandenbroucke JP. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) statement: guidelines for reporting observational studies. *Lancet*. 2007;370(9596):1453–1457. doi:10.1016/S0140-6736(07)61602-X
+
+41. Collins GS, Moons KGM, Dhiman P, Riley RD, Beam AL, Van Calster B, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. *BMJ*. 2024;385:e078378. doi:10.1136/bmj-2023-078378
+
+42. Montiel Olea JL, Plagborg-Møller M. Simultaneous confidence bands: theory, implementation, and an application to SVARs. *J Appl Econom*. 2019;34(1):1–17. doi:10.1002/jae.2656
 
 ## Primary source studies (aggregate data inputs — 23 publications; see Table 1 and Supplementary S3)
 
-20. Aukan MI, Nymo S, Haagensli Ollestad K, Akersveen Boyesen G, DeBenedictis JN, Rehfeld JF, Coutinho S, Martins C. Differences in gastrointestinal hormones and appetite ratings among obesity classes. *Appetite*. 2022;171:105940. doi:10.1016/j.appet.2022.105940
+43. Aukan MI, Nymo S, Haagensli Ollestad K, Akersveen Boyesen G, DeBenedictis JN, Rehfeld JF, Coutinho S, Martins C. Differences in gastrointestinal hormones and appetite ratings among obesity classes. *Appetite*. 2022;171:105940. doi:10.1016/j.appet.2022.105940
 
-21. Belinova L, Kahleova H, Malinska H, Topolcan O, Vrzalova J, Oliyarnyk O, Kazdova L, Hill M, Pelikanova T. Differential acute postprandial effects of processed meat and isocaloric vegan meals on the gastrointestinal hormone response in subjects suffering from type 2 diabetes and healthy controls. *PLoS One*. 2014;9(9):e107561. doi:10.1371/journal.pone.0107561
+44. Belinova L, Kahleova H, Malinska H, Topolcan O, Vrzalova J, Oliyarnyk O, Kazdova L, Hill M, Pelikanova T. Differential acute postprandial effects of processed meat and isocaloric vegan meals on the gastrointestinal hormone response in subjects suffering from type 2 diabetes and healthy controls. *PLoS One*. 2014;9(9):e107561. doi:10.1371/journal.pone.0107561
 
-22. DeBenedictis JN, Nymo S, Ollestad KH, Boyesen GA, Rehfeld JF, Holst JJ, Truby H, Kulseng B, Martins C. Changes in the homeostatic appetite system after weight loss reflect a normalization toward a lower body weight. *J Clin Endocrinol Metab*. 2020;105(7):e2538–e2546. doi:10.1210/clinem/dgaa202
+45. DeBenedictis JN, Nymo S, Ollestad KH, Boyesen GA, Rehfeld JF, Holst JJ, Truby H, Kulseng B, Martins C. Changes in the homeostatic appetite system after weight loss reflect a normalization toward a lower body weight. *J Clin Endocrinol Metab*. 2020;105(7):e2538–e2546. doi:10.1210/clinem/dgaa202
 
-23. Di Giuseppe G, Gliozzo G, Ciccarelli G, Carciero L, Brunetti M, Soldovieri L, et al. Postprandial gut-hormone profiles in glycemic dysregulation and metabolic surgery. *J Clin Endocrinol Metab*. 2025 [Epub ahead of print].
+46. Di Giuseppe G, Gliozzo G, Ciccarelli G, Carciero L, Brunetti M, Soldovieri L, et al. Postprandial gut-hormone profiles in glycemic dysregulation and metabolic surgery. *J Clin Endocrinol Metab*. 2025 [Epub ahead of print].
 
-24. Engström BE, Öhrvall M, Sundbom M, Lind L, Karlsson FA. Meal suppression of circulating ghrelin is normalized in obese individuals following gastric bypass surgery. *Int J Obes (Lond)*. 2007;31(3):476–480. doi:10.1038/sj.ijo.0803440
+47. Engström BE, Öhrvall M, Sundbom M, Lind L, Karlsson FA. Meal suppression of circulating ghrelin is normalized in obese individuals following gastric bypass surgery. *Int J Obes (Lond)*. 2007;31(3):476–480. doi:10.1038/sj.ijo.0803440
 
-25. Hedbäck N, Hindsø M, Bojsen-Møller KN, Linddal AK, Jørgensen NB, Dirksen C, Møller A, Kristiansen VB, Hartmann B, Holst JJ, Svane MS, Madsbad S. Effect of meal texture on postprandial glucose excursions and gut hormones after Roux-en-Y gastric bypass and sleeve gastrectomy. *Front Nutr*. 2022;9:889710. doi:10.3389/fnut.2022.889710
+48. Hedbäck N, Hindsø M, Bojsen-Møller KN, Linddal AK, Jørgensen NB, Dirksen C, Møller A, Kristiansen VB, Hartmann B, Holst JJ, Svane MS, Madsbad S. Effect of meal texture on postprandial glucose excursions and gut hormones after Roux-en-Y gastric bypass and sleeve gastrectomy. *Front Nutr*. 2022;9:889710. doi:10.3389/fnut.2022.889710
 
-26. Hill BR, De Souza MJ, Wagstaff DA, Sato R, Williams NI. 24-hour profiles of circulating ghrelin and peptide YY are inversely associated in normal weight premenopausal women. *Peptides*. 2012;38(1):159–162. doi:10.1016/j.peptides.2012.08.017
+49. Hill BR, De Souza MJ, Wagstaff DA, Sato R, Williams NI. 24-hour profiles of circulating ghrelin and peptide YY are inversely associated in normal weight premenopausal women. *Peptides*. 2012;38(1):159–162. doi:10.1016/j.peptides.2012.08.017
 
-27. Jones IR, Owens DR, Luzio S, Williams S, Hayes TM. The glucose dependent insulinotropic polypeptide response to oral glucose and mixed meals is increased in patients with type 2 (non-insulin-dependent) diabetes mellitus. *Diabetologia*. 1989;32(9):668–677. doi:10.1007/BF00274255
+50. Jones IR, Owens DR, Luzio S, Williams S, Hayes TM. The glucose dependent insulinotropic polypeptide response to oral glucose and mixed meals is increased in patients with type 2 (non-insulin-dependent) diabetes mellitus. *Diabetologia*. 1989;32(9):668–677. doi:10.1007/BF00274255
 
-28. Kim EK, Oh TJ, Kim LK, Cho YM. Improving effect of the acute administration of dietary fiber-enriched cereals on blood glucose levels and gut hormone secretion. *J Korean Med Sci*. 2016;31(2):222–230. doi:10.3346/jkms.2016.31.2.222
+51. Kim EK, Oh TJ, Kim LK, Cho YM. Improving effect of the acute administration of dietary fiber-enriched cereals on blood glucose levels and gut hormone secretion. *J Korean Med Sci*. 2016;31(2):222–230. doi:10.3346/jkms.2016.31.2.222
 
-29. Laferrère B, Teixeira J, McGinty J, Tran H, Egger JR, Colarusso A, Kovack B, Bawa B, Koshy N, Lee H, Yapp K, Olivan B. Effect of weight loss by gastric bypass surgery versus hypocaloric diet on glucose and incretin levels in patients with type 2 diabetes. *J Clin Endocrinol Metab*. 2008;93(7):2479–2485. doi:10.1210/jc.2007-2851
+52. Laferrère B, Teixeira J, McGinty J, Tran H, Egger JR, Colarusso A, Kovack B, Bawa B, Koshy N, Lee H, Yapp K, Olivan B. Effect of weight loss by gastric bypass surgery versus hypocaloric diet on glucose and incretin levels in patients with type 2 diabetes. *J Clin Endocrinol Metab*. 2008;93(7):2479–2485. doi:10.1210/jc.2007-2851
 
-30. Meek CL, Lewis HB, Burling K, Reimann F, Gribble F. Expected values for gastrointestinal and pancreatic hormone concentrations in healthy volunteers in the fasting and postprandial state. *Ann Clin Biochem*. 2020;58(2):108–116. doi:10.1177/0004563220975658
+53. Meek CL, Lewis HB, Burling K, Reimann F, Gribble F. Expected values for gastrointestinal and pancreatic hormone concentrations in healthy volunteers in the fasting and postprandial state. *Ann Clin Biochem*. 2020;58(2):108–116. doi:10.1177/0004563220975658
 
-31. Nannipieri M, Baldi S, Mari A, Colligiani D, Guarino D, Camastra S, Barsotti E, Berta R, Moriconi D, Bellini R, Anselmino M, Ferrannini E. Roux-en-Y gastric bypass and sleeve gastrectomy: mechanisms of diabetes remission and role of gut hormones. *J Clin Endocrinol Metab*. 2013;98(11):4391–4399. doi:10.1210/jc.2013-2538
+54. Nannipieri M, Baldi S, Mari A, Colligiani D, Guarino D, Camastra S, Barsotti E, Berta R, Moriconi D, Bellini R, Anselmino M, Ferrannini E. Roux-en-Y gastric bypass and sleeve gastrectomy: mechanisms of diabetes remission and role of gut hormones. *J Clin Endocrinol Metab*. 2013;98(11):4391–4399. doi:10.1210/jc.2013-2538
 
-32. Nosso G, Griffo E, Cotugno M, Saldalamacchia G, Lupoli R, Pacini G, Riccardi G, Angrisani L, Capaldo B. Comparative effects of Roux-en-Y gastric bypass and sleeve gastrectomy on glucose homeostasis and incretin hormones in obese type 2 diabetic patients: a one-year prospective study. *Horm Metab Res*. 2016;48(5):312–317. doi:10.1055/s-0041-111505
+55. Nosso G, Griffo E, Cotugno M, Saldalamacchia G, Lupoli R, Pacini G, Riccardi G, Angrisani L, Capaldo B. Comparative effects of Roux-en-Y gastric bypass and sleeve gastrectomy on glucose homeostasis and incretin hormones in obese type 2 diabetic patients: a one-year prospective study. *Horm Metab Res*. 2016;48(5):312–317. doi:10.1055/s-0041-111505
 
-33. Oliván B, Teixeira J, Bose M, Bawa B, Chang T, Summe H, Lee H, Laferrère B. Effect of weight loss by diet or gastric bypass surgery on peptide YY3-36 levels. *Ann Surg*. 2009;249(6):948–953. doi:10.1097/SLA.0b013e3181a6cdb0
+56. Oliván B, Teixeira J, Bose M, Bawa B, Chang T, Summe H, Lee H, Laferrère B. Effect of weight loss by diet or gastric bypass surgery on peptide YY3-36 levels. *Ann Surg*. 2009;249(6):948–953. doi:10.1097/SLA.0b013e3181a6cdb0
 
-34. Peterli R, Steinert RE, Woelnerhanssen B, Peters T, Christoffel-Courtin C, Gass M, Kern B, von Fluee M, Beglinger C. Metabolic and hormonal changes after laparoscopic Roux-en-Y gastric bypass and sleeve gastrectomy: a randomized, prospective trial. *Obes Surg*. 2012;22(5):740–748. doi:10.1007/s11695-012-0622-3
+57. Peterli R, Steinert RE, Woelnerhanssen B, Peters T, Christoffel-Courtin C, Gass M, Kern B, von Fluee M, Beglinger C. Metabolic and hormonal changes after laparoscopic Roux-en-Y gastric bypass and sleeve gastrectomy: a randomized, prospective trial. *Obes Surg*. 2012;22(5):740–748. doi:10.1007/s11695-012-0622-3
 
-35. Svane MS, Bojsen-Møller KN, Martinussen C, Dirksen C, Madsen JL, Reitelseder S, Holm L, Rehfeld JF, Kristiansen VB, van Hall G, Holst JJ, Madsbad S. Postprandial nutrient handling and gastrointestinal hormone secretion after Roux-en-Y gastric bypass vs. sleeve gastrectomy. *Gastroenterology*. 2019;156(6):1627–1641.e1. doi:10.1053/j.gastro.2019.01.262
+58. Svane MS, Bojsen-Møller KN, Martinussen C, Dirksen C, Madsen JL, Reitelseder S, Holm L, Rehfeld JF, Kristiansen VB, van Hall G, Holst JJ, Madsbad S. Postprandial nutrient handling and gastrointestinal hormone secretion after Roux-en-Y gastric bypass vs. sleeve gastrectomy. *Gastroenterology*. 2019;156(6):1627–1641.e1. doi:10.1053/j.gastro.2019.01.262
 
-36. Theodorakis MJ, Carlson O, Muller DC, Egan JM. Elevated plasma glucose-dependent insulinotropic polypeptide associates with hyperinsulinemia in impaired glucose tolerance. *Diabetes Care*. 2004;27(7):1692–1698. doi:10.2337/diacare.27.7.1692
+59. Theodorakis MJ, Carlson O, Muller DC, Egan JM. Elevated plasma glucose-dependent insulinotropic polypeptide associates with hyperinsulinemia in impaired glucose tolerance. *Diabetes Care*. 2004;27(7):1692–1698. doi:10.2337/diacare.27.7.1692
 
-37. Valderas JP, Irribarra V, Boza C, de la Cruz R, Liberona Y, Acosta AM, Yolito M, Maiz A. Medical and surgical treatments for obesity have opposite effects on peptide YY and appetite: a prospective study controlled for weight loss. *J Clin Endocrinol Metab*. 2010;95(3):1069–1075. doi:10.1210/jc.2009-0983
+60. Valderas JP, Irribarra V, Boza C, de la Cruz R, Liberona Y, Acosta AM, Yolito M, Maiz A. Medical and surgical treatments for obesity have opposite effects on peptide YY and appetite: a prospective study controlled for weight loss. *J Clin Endocrinol Metab*. 2010;95(3):1069–1075. doi:10.1210/jc.2009-0983
 
-38. Verdich C, Toubro S, Buemann B, Lysgård Madsen J, Juul Holst J, Astrup A. The role of postprandial releases of insulin and incretin hormones in meal-induced satiety — effect of obesity and weight reduction. *Int J Obes Relat Metab Disord*. 2001;25(8):1206–1214. doi:10.1038/sj.ijo.0801655
+61. Verdich C, Toubro S, Buemann B, Lysgård Madsen J, Juul Holst J, Astrup A. The role of postprandial releases of insulin and incretin hormones in meal-induced satiety — effect of obesity and weight reduction. *Int J Obes Relat Metab Disord*. 2001;25(8):1206–1214. doi:10.1038/sj.ijo.0801655
 
-39. Vilsbøll T, Krarup T, Deacon CF, Madsbad S, Holst JJ. Reduced postprandial concentrations of intact biologically active glucagon-like peptide 1 in type 2 diabetic patients. *Diabetes*. 2001;50(3):609–613. doi:10.2337/diabetes.50.3.609
+62. Vilsbøll T, Krarup T, Deacon CF, Madsbad S, Holst JJ. Reduced postprandial concentrations of intact biologically active glucagon-like peptide 1 in type 2 diabetic patients. *Diabetes*. 2001;50(3):609–613. doi:10.2337/diabetes.50.3.609
 
-40. Vilsbøll T, Krarup T, Sonne J, Madsbad S, Vølund A, Juul AG, Holst JJ. Incretin secretion in relation to meal size and body weight in healthy subjects and people with type 1 and type 2 diabetes mellitus. *J Clin Endocrinol Metab*. 2003;88(6):2706–2713. doi:10.1210/jc.2002-021873
+63. Vilsbøll T, Krarup T, Sonne J, Madsbad S, Vølund A, Juul AG, Holst JJ. Incretin secretion in relation to meal size and body weight in healthy subjects and people with type 1 and type 2 diabetes mellitus. *J Clin Endocrinol Metab*. 2003;88(6):2706–2713. doi:10.1210/jc.2002-021873
 
-41. Wilbrink J, van Avesaat M, Stronkhorst A, Troost F, le Roux CW, Masclee A. Peptide YY and glucagon-like peptide-1 secretion in obesity. *Gastrointestinal Disorders*. 2025;7(1):12. doi:10.3390/gidisord7010012
+64. Wilbrink J, van Avesaat M, Stronkhorst A, Troost F, le Roux CW, Masclee A. Peptide YY and glucagon-like peptide-1 secretion in obesity. *Gastrointestinal Disorders*. 2025;7(1):12. doi:10.3390/gidisord7010012
 
-42. Yousseif A, Emmanuel J, Karra E, Millet Q, Elkalaawy M, Jenkinson AD, Hashemi M, Adamo M, Finer N, Fiennes AG, Withers DJ, Batterham RL. Differential effects of laparoscopic sleeve gastrectomy and laparoscopic gastric bypass on appetite, circulating acyl-ghrelin, peptide YY3-36 and active GLP-1 levels in non-diabetic humans. *Obes Surg*. 2014;24(2):241–252. doi:10.1007/s11695-013-1066-0
+65. Yousseif A, Emmanuel J, Karra E, Millet Q, Elkalaawy M, Jenkinson AD, Hashemi M, Adamo M, Finer N, Fiennes AG, Withers DJ, Batterham RL. Differential effects of laparoscopic sleeve gastrectomy and laparoscopic gastric bypass on appetite, circulating acyl-ghrelin, peptide YY3-36 and active GLP-1 levels in non-diabetic humans. *Obes Surg*. 2014;24(2):241–252. doi:10.1007/s11695-013-1066-0
 
-*Note: Citation details for references 9, 16 and 23 (Li et al. 2020; Bojsen-Møller et al. 2014; Di Giuseppe et al. 2025 [Epub]) should be verified by the author against the published records; full DOIs are provided based on best-available metadata. Source-study DOIs 20–42 correspond to the `Reference` column of `hormones_long_tidy.csv` archived at Zenodo v1.2 (10.5281/zenodo.19750294); see Supplementary S3 for the full cohort-study mapping.*
+*Note: Citation details for references 23, 24, 35, 39 and 46 (Eli Lilly TRIUMPH-4 press release; Novo Nordisk REDEFINE-1 press release; Li et al. 2021; Bojsen-Møller et al. 2014; Di Giuseppe et al. 2025 [Epub]) should be verified by the author against the published records or final press materials. Source-study DOIs 43–65 correspond to the `Reference` column of `hormones_long_tidy.csv` archived at Zenodo v1.2 (10.5281/zenodo.19750294); see Supplementary S3 for the full cohort-study mapping.*
 
 # Tables
 
