@@ -78,7 +78,7 @@ The six canonical cohorts are: `no_obese_without_T2DM` (reference; non-obese, no
 
 The eleven analyte-forms are organized by biological dominance phase, complementary to the framework-level *secretion-dominant / suppression-dominant / glycemic-regulation* groupings of PTP framework v1.0 §2.2:
 
-- **Fasting hormones** (active during the inter-meal/fasting state, with key inhibition events at meal onset): **ghrelin** (total and acylated) and **glucagon**. Ghrelin exerts critical biological functions during fasting — maintaining neuronal plasticity, inhibiting fasting insulin secretion, and modulating anxiety; chronic post-bariatric ghrelin reduction has been linked to addictive and suicidal behaviors.^27,28^ Glucagon stabilizes fasting glycemia via hepatic, pancreatic, and peripheral glucoregulatory effects.^31^
+- **Fasting hormones** (active during the inter-meal/fasting state, with key inhibition events at meal onset): **ghrelin** (total and acylated) and **glucagon**. Ghrelin exerts critical biological functions during fasting — maintaining neuronal plasticity, inhibiting fasting insulin secretion, and modulating appetite and anxiety circuits via the GHSR axis;^27,28^ chronic post-bariatric ghrelin reduction has been observationally associated in the clinical literature with neurobehavioral and addiction-related sequelae warranting independent investigation. Glucagon stabilizes fasting glycemia via hepatic, pancreatic, and peripheral glucoregulatory effects, with the recently described liver–α-cell amino-acid axis providing additional regulatory input.^31^
 
 - **Postprandial hormones** (active during the post-meal nutrient-stimulated phase): **GIP** (total and active), **GLP-1** (total and active), **PYY** (total and 3-36), and **insulin**. These hormones drive nutrient-stimulated insulin secretion, satiety signaling, and glycemic excursion control.^16,19^
 
@@ -112,7 +112,7 @@ Each of 11 analyte-forms is modeled separately by PACE on the dynamic component 
 
 ## 2.9 Inference and dual classification
 
-Formal inference by FANOVA permutation (B = 5000 cohort-label permutations per retained PC; BH-FDR α = 0.05) plus Pillai multivariate contrasts. Simultaneous 95 % bands via sup-t bootstrap^48^ (B = 2000). Dual classification:
+Formal inference by FANOVA permutation (B = 5000 cohort-label permutations per retained PC; BH-FDR α = 0.05) plus Pillai multivariate contrasts. Simultaneous 95 % bands via sup-t bootstrap (B = 2000),^48^ implemented analogously to the corrected functional confidence-band construction of Goldsmith and colleagues.^37^ Dual classification:
 
 - **Joint-mFPC 6-class** on the first three retained multivariate scores $(\xi_1, \xi_2, \xi_3)$: pseudo-subjects z-standardized against the reference distribution, then assigned to one of six classes (Preservado, Impairment limítrofe, Impaired, Blunted, Enhanced, Altered) with pre-registered precedence Altered > Blunted/Enhanced > Impaired > Impairment limítrofe > Preservado.
 
@@ -406,7 +406,7 @@ References are numbered in order of first appearance in the text. Numbers 1–48
 
 45. Bojsen-Møller KN, Dirksen C, Jørgensen NB, Jacobsen SH, Serup AK, Albers PH, et al. Early enhancements of hepatic and later of peripheral insulin sensitivity combined with increased postprandial insulin secretion contribute to improved glycemic control after Roux-en-Y gastric bypass. *Diabetes*. 2014;63(5):1725–1737. doi:10.2337/db13-1307. PMID: 24241533.
 
-40. von Elm E, Altman DG, Egger M, Pocock SJ, Gøtzsche PC, Vandenbroucke JP. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) statement: guidelines for reporting observational studies. *Lancet*. 2007;370(9596):1453–1457. doi:10.1016/S0140-6736(07)61602-X
+46. von Elm E, Altman DG, Egger M, Pocock SJ, Gøtzsche PC, Vandenbroucke JP. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) statement: guidelines for reporting observational studies. *Lancet*. 2007;370(9596):1453–1457. doi:10.1016/S0140-6736(07)61602-X
 
 47. Collins GS, Moons KGM, Dhiman P, Riley RD, Beam AL, Van Calster B, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. *BMJ*. 2024;385:e078378. doi:10.1136/bmj-2023-078378
 
