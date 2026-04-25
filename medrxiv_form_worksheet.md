@@ -155,19 +155,19 @@ Not applicable. This is not a clinical trial; it is a descriptive-inferential ec
 ### 8f. Pre-registration / study protocol registration
 
 ```
-Pre-registered at the Open Science Framework (OSF), registration DOI 10.17605/OSF.IO/3CZRE, frozen 2026-04-22 prior to data lock. Registration URL: https://osf.io/3czre. Full pre-registration YAML and cohort normalization map archived at Zenodo v1.2 DOI 10.5281/zenodo.19750294.
+Pre-registered at the Open Science Framework (OSF), registration DOI 10.17605/OSF.IO/3CZRE, frozen 2026-04-22 prior to data lock. Registration URL: https://osf.io/3czre. Full pre-registration YAML and cohort normalization map archived at Zenodo v1.3 DOI 10.5281/zenodo.19758429.
 ```
 
 ### 8g. Data availability statement
 
 ```
-All derived cohort-level aggregate trajectories, pseudo-IPD draws, classification outputs, and intermediate tables are archived under CC-BY 4.0 at Zenodo: concept DOI 10.5281/zenodo.19743544 (resolves to latest version) and version DOI 10.5281/zenodo.19750294 (v1.2, current). The original master table is retained under the reasonable-controlled-access principle consistent with ICMJE guidance; the full source-study reference list is preserved in Supplementary File S3 (Verification Appendix).
+All derived cohort-level aggregate trajectories, pseudo-IPD draws, classification outputs, and intermediate tables are archived under CC-BY 4.0 at Zenodo: concept DOI 10.5281/zenodo.19743544 (resolves to latest version) and version DOI 10.5281/zenodo.19758429 (v1.3, current). The original master table is retained under the reasonable-controlled-access principle consistent with ICMJE guidance; the full source-study reference list is preserved in Supplementary File S3 (Verification Appendix).
 ```
 
 ### 8h. Code availability statement
 
 ```
-Complete R analysis code is archived at Zenodo under CC-BY 4.0 (concept DOI 10.5281/zenodo.19743544; version v1.2 DOI 10.5281/zenodo.19750294) and developed openly at https://github.com/sv8wmxnbp8-hash/EPP10 (release tag v1.2). Reproducibility artefacts include renv.lock, sessionInfo.txt, and SHA-256 checksums of all input and output CSVs documented in Supplementary S3 §Post-release DOI assignments.
+Complete R analysis code is archived at Zenodo under CC-BY 4.0 (concept DOI 10.5281/zenodo.19743544; version v1.3 DOI 10.5281/zenodo.19758429) and developed openly at https://github.com/sv8wmxnbp8-hash/EPP10 (release tag v1.3). Reproducibility artefacts include renv.lock, sessionInfo.txt, and SHA-256 checksums of all input and output CSVs documented in Supplementary S3 §Post-release DOI assignments.
 ```
 
 ### 8i. Author contributions (CRediT taxonomy)
@@ -208,7 +208,7 @@ I am submitting the manuscript "Dynamic Enteropancreatic Phenotyping via Sparse 
 
 This work develops and validates a reproducible framework for extracting cohort-specific multi-hormone periprandial signatures from ecological aggregate data. It introduces two methodological contributions: (i) operational application of sparse multivariate functional PCA with Chiou normalization to multi-analyte endocrine trajectories, and (ii) the Periprandial Transition Profile (PTP) → Integrated Enteropancreatic Pattern (IEP) Type I–V classification framework. A novel conceptual construct — physiologic periprandial responsiveness — is introduced to replace the static secretory capacity construct, capturing both fasting and postprandial, secretory and inhibitory phases of the enteropancreatic axis under a single multi-analyte multi-state formalism.
 
-The study is fully pre-registered at OSF (DOI 10.17605/OSF.IO/3CZRE, frozen 2026-04-22); analysis code is archived at Zenodo v1.2 (DOI 10.5281/zenodo.19750294) under CC-BY 4.0; reporting follows the STROBE cohort checklist (Supplementary S1); TRIPOD+AI is declared not applicable because the analysis is descriptive-inferential rather than a subject-level prediction model.
+The study is fully pre-registered at OSF (DOI 10.17605/OSF.IO/3CZRE, frozen 2026-04-22); analysis code is archived at Zenodo v1.3 (DOI 10.5281/zenodo.19758429) under CC-BY 4.0; reporting follows the STROBE cohort checklist (Supplementary S1); TRIPOD+AI is declared not applicable because the analysis is descriptive-inferential rather than a subject-level prediction model.
 
 The manuscript has not been submitted elsewhere and is not under consideration at any peer-reviewed journal. AI-assisted writing is fully disclosed.
 
